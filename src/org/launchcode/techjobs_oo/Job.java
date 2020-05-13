@@ -7,18 +7,18 @@ public class Job {
     private int id;
     private static int nextId = 1;
 
-    private String name;
-    private Employer employer;
-    private Location location;
-    private PositionType positionType;
-    private CoreCompetency coreCompetency;
+    private Name name = new Name();
+    private Employer employer = new Employer();
+    private Location location = new Location();
+    private PositionType positionType = new PositionType();
+    private CoreCompetency coreCompetency = new CoreCompetency();
 
     public Job() {
         id = nextId;
         nextId++;
     }
 
-    public Job(String name, Employer employer, Location location, PositionType positionType, CoreCompetency coreCompetency) {
+    public Job(Name name, Employer employer, Location location, PositionType positionType, CoreCompetency coreCompetency) {
         this();
         this.name = name;
         this.employer = employer;
@@ -41,15 +41,34 @@ public class Job {
         return Objects.hash(id);
     }
 
+    @Override
+    public String toString() {
+        if (    getName().toString().equals("Data not available") &&
+                getEmployer().toString().equals("Data not available") &&
+                getLocation().toString().equals("Data not available") &&
+                getPositionType().toString().equals("Data not available") &&
+                getCoreCompetency().toString().equals("Data not available") ){
+            return "\nOOPS! This job does not seem to exist.\n";
+        }
+
+        return  "\n" +
+                "ID: " + getId() + "\n" +
+                "Name: " + getName() + "\n" +
+                "Employer: " + getEmployer() + "\n" +
+                "Location: " + getLocation() + "\n" +
+                "Position Type: " + getPositionType() + "\n" +
+                "Core Competency: " + getCoreCompetency() + "\n";
+    }
+
     public int getId() {
         return id;
     }
 
-    public String getName() {
+    public Name getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(Name name) {
         this.name = name;
     }
 
@@ -85,13 +104,4 @@ public class Job {
         this.coreCompetency = coreCompetency;
     }
 
-    // TODO: Add two constructors - one to initialize a unique ID and a second to initialize the
-    //  other five fields. The second constructor should also call the first in order to initialize
-    //  the 'id' field.
-
-    // TODO: Add custom equals and hashCode methods. Consider two Job objects "equal" when their id fields
-    //  match.
-
-    // TODO: Add getters for each field EXCEPT nextId. Add setters for each field EXCEPT nextID
-    //  and id.
 }
